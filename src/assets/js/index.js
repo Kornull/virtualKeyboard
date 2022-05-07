@@ -1,1 +1,2 @@
-import '../../index.html'
+import '../../index.html';
+import '../sass/main.scss';
