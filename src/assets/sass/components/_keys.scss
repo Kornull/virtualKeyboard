@@ -25,7 +25,6 @@
     border-radius: 15px;
     color: #000000;
   }
-
 }
 
 .keyboards__key--caps::after {
@@ -41,5 +40,16 @@
 }
 .keyboards__key--caps.active::after {
   background: rgb(255, 0, 0);
+}
+
+.active {
+  background-color: #ffffff;
+  border: 1px solid #000;
+  box-shadow: 0 0 5px #fff;
+  border-radius: 15px;
+  color: #000000;
+  &:hover{
+    color: #fff;
+  }
 }
 
