@@ -41,9 +41,10 @@ export default class Keyboard {
             this.key = document.createElement('div');
             this.key.classList.add('keyboards__key');
             this.key.id = i.keyCode.toLowerCase();
-            if (this.key.id === 'space') { this.key.style.width = '580px'; }
+            if (this.key.id === 'space') { this.key.style.width = '510px'; }
             if (this.key.id === 'capslock') { this.key.classList.add('keyboards__key--caps'); }
             if (this.key.id.match(/backspace|shift|enter/)) { this.key.style.width = '180px'; }
+            if (this.key.id.match(/alt|meta|control/)) { this.key.style.width = '68px'; }
             if (this.key.id.match(/caps|enter/)) { this.key.style.width = '140px'; }
             if (this.key.id.match(/arrow/)) {
               this.key.style.width = '53px';
