@@ -25,19 +25,21 @@
     border-radius: 15px;
     color: #000000;
   }
-  &__key--caps::after {
-    content: "";
-    background: rgb(121, 126, 121);
-    position: absolute;
-    top: 7px;
-    right: 7px;
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    justify-content: flex-start;
-  }
-  &__key--caps.active::after {
-    background: rgb(255, 0, 0);
-  }
+
+}
+
+.keyboards__key--caps::after {
+  content: "";
+  background: rgb(121, 126, 121);
+  position: absolute;
+  top: 7px;
+  right: 7px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  justify-content: flex-start;
+}
+.keyboards__key--caps.active::after {
+  background: rgb(255, 0, 0);
 }
 
