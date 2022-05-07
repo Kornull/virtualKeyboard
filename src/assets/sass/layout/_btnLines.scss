@@ -1,0 +1,28 @@
+.row {
+  display: grid;
+}
+
+.arrows {
+  display: grid;
+  gap: 5px;
+}
+
+.arrou-1 {
+  display: grid;
+  grid-column: 2;
+}
+
+.arrou-2 {
+  display: grid;
+  grid-column: 1;
+}
+
+.arrou-3 {
+  display: grid;
+  grid-column: 2;
+}
+
+.arrou-4 {
+  display: grid;
+  grid-column: 3;
+}
