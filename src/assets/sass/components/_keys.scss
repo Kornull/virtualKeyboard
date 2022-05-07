@@ -13,12 +13,12 @@
   padding: 15px;
   text-align-last: left;
   cursor: pointer;
-  transition: border-radius 0.2s linear, background-color 0.2s linear, color 0.2s linear;
+  transition: border-radius 0.2s linear, background-color 0.1s linear, color 0.1s linear;
   &:hover {
     background: rgb(0, 0, 0);
     border-radius: 10px;
   }
-  &active {
+  &:active {
     background-color: #ffffff;
     border: 1px solid #000;
     box-shadow: 0 0 5px #fff;
