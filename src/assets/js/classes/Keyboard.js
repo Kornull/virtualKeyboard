@@ -1,6 +1,8 @@
+/* eslint-disable no-param-reassign */
 import language from '../lang/lang';
 import { get, set } from '../storage/storage';
 
+let countCaps = 0;
 export default class Keyboard {
   constructor(keys, lang) {
     this.keys = keys;
@@ -103,18 +105,19 @@ export default class Keyboard {
             if (x.id.match(/tab/)) this.text.value += '    ';
             if (x.id.match(/ent/)) this.text.value += '\n';
             if (x.id.match(/space/)) this.text.value += ' ';
+            if (x.id.match(/caps/)) {
+              countCaps += 1;
+              this.capsText(countCaps);
+              if (countCaps % 2 === 0) {
+                countCaps = 0;
+              }
+            }
             if (x.id.match(/shift/)) {
-              // upper text
-              this.btns.forEach((j) => {
-                language[this.lang].forEach((e) => {
-                  if (j.id.match(/key|dig|bracket|slash|comma|period|quote|semi|equal|min/)) {
-                    if (j.id === e.keyCode.toLowerCase()) {
-                      // eslint-disable-next-line no-param-reassign
-                      j.innerHTML = e.shift;
-                    }
-                  }
-                });
-              });
+              if (countCaps === 1) {
+                this.textUpLow('keyup');
+              } else {
+                this.textUpLow(type);
+              }
             }
             //
             // if (get('keyLang') === 'ru') {
@@ -126,22 +129,83 @@ export default class Keyboard {
             // }
           }
         } else if (type.match(/keyup/)) {
-          // lower text
           if (x.id.match(/shift/)) {
-            this.btns.forEach((j) => {
-              language[this.lang].forEach((e) => {
-                if (j.id.match(/key|dig|bracket|slash|comma|period|quote|semi|equal|min/)) {
-                  if (j.id === e.keyCode.toLowerCase()) {
-                    // eslint-disable-next-line no-param-reassign
-                    j.innerHTML = e.small;
-                  }
-                }
-              });
-            });
+            if (countCaps === 1) {
+              this.textUpLow('keydown');
+            } else {
+              this.textUpLow(type);
+            }
           }
           x.classList.remove('active');
+          if (countCaps % 2 !== 0) {
+            if (x.id.match(/caps/)) x.classList.add('active');
+          } else {
+            x.classList.remove('active');
+          }
         }
       }
     });
   }
+
+  textUpLow = (t) => {
+    // upper/lower text
+    this.btns.forEach((j) => {
+      language[this.lang].forEach((e) => {
+        if (j.id.match(/key|dig|bracket|slash|comma|period|quote|semi|equal|min/)) {
+          if (j.id === e.keyCode.toLowerCase()) {
+            if (t.match(/down/)) {
+              j.innerHTML = e.shift;
+
+              // if capslock is pressed
+              if (countCaps === 1 && this.lang === 'en') {
+                if (j.id.match(/digit|min|equ|bracket|comma|period|quote|semi|slash/)) j.innerHTML = e.small;
+                if (j.id.match(/key/)) {
+                  j.innerHTML = e.shift;
+                }
+              } else if (countCaps === 1 && this.lang === 'ru') {
+                if (j.id.match(/key|backquote|bracket|comma|period|quote|semi/)) j.innerHTML = e.shift;
+                if (j.id.match(/digit|min|equ|slash/)) j.innerHTML = e.small;
+              }
+            } else if (t.match(/up/)) {
+              j.innerHTML = e.small;
+
+              // if capslock is pressed
+              if (countCaps === 1 && this.lang === 'en') {
+                if (j.id.match(/key/)) { j.innerHTML = e.small; }
+              } else if (countCaps === 1 && this.lang === 'ru') {
+                if (j.id.match(/key|backquote|bracket|comma|period|quote|semi/)) j.innerHTML = e.small;
+              }
+            }
+          }
+        }
+      });
+    });
+  };
+
+  // capslock run
+  capsText = (n) => {
+    this.btns.forEach((j) => {
+      language[this.lang].forEach((e) => {
+        if (this.lang === 'ru') {
+          if (j.id.match(/key|bracket|comma|period|quote|semi/)) {
+            if (j.id === e.keyCode.toLowerCase()) {
+              if (n % 2 !== 0) {
+                j.innerHTML = e.shift;
+              } else {
+                j.innerHTML = e.small;
+              }
+            }
+          }
+        } else if (j.id.match(/key/)) {
+          if (j.id === e.keyCode.toLowerCase()) {
+            if (n % 2 !== 0) {
+              j.innerHTML = e.shift;
+            } else {
+              j.innerHTML = e.small;
+            }
+          }
+        }
+      });
+    });
+  };
 }
