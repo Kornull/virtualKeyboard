@@ -1,4 +1,4 @@
-import { get } from '../storage/storage';
+import { get, set } from '../storage/storage';
 import Keyboard from '../classes/Keyboard';
 
 const keys = [
@@ -12,7 +12,8 @@ const keys = [
 ];
 let lang = get('keyLang');
 if (lang === null) {
-  lang = 'en';
+  set('keyLang', 'ru');
+  lang = 'ru';
 }
 const keyboard = new Keyboard(keys);
 window.addEventListener('DOMContentLoaded', () => {
