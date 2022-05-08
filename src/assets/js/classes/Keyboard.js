@@ -99,10 +99,12 @@ export default class Keyboard {
 
             // write to textarrea
             x.classList.add('active');
-            if (x.id.match(/key|dig|bracket|slash|comma|period|quote|semi|arrow/)) this.text.value += x.textContent;
+            if (x.id.match(/key|dig|bracket|slash|comma|period|quote|semi|arrow|equal|min/)) this.text.value += x.textContent;
             if (x.id.match(/tab/)) this.text.value += '    ';
             if (x.id.match(/ent/)) this.text.value += '\n';
+            if (x.id.match(/space/)) this.text.value += ' ';
             if (x.id.match(/shift/)) {
+              // upper text
               this.btns.forEach((j) => {
                 language[this.lang].forEach((e) => {
                   if (j.id.match(/key|dig|bracket|slash|comma|period|quote|semi|equal|min/)) {
@@ -124,6 +126,7 @@ export default class Keyboard {
             // }
           }
         } else if (type.match(/keyup/)) {
+          // lower text
           if (x.id.match(/shift/)) {
             this.btns.forEach((j) => {
               language[this.lang].forEach((e) => {
