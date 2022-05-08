@@ -98,22 +98,44 @@ export default class Keyboard {
             ev.preventDefault();
 
             // write to textarrea
-            const a = language[this.lang].find((el) => el.keyCode.toLowerCase() === x.id);
             x.classList.add('active');
-            if (x.id.match(/key|dig|bracket|slash|comma|period|quote|semi|arrow/)) this.text.value += a.small;
+            if (x.id.match(/key|dig|bracket|slash|comma|period|quote|semi|arrow/)) this.text.value += x.textContent;
             if (x.id.match(/tab/)) this.text.value += '    ';
             if (x.id.match(/ent/)) this.text.value += '\n';
             if (x.id.match(/shift/)) {
-              if (get('keyLang') === 'ru') {
-                set('keyLang', 'en');
-                this.init(get('keyLang'));
-              } else {
-                set('keyLang', 'ru');
-                this.init(get('keyLang'));
-              }
+              this.btns.forEach((j) => {
+                language[this.lang].forEach((e) => {
+                  if (j.id.match(/key|dig|bracket|slash|comma|period|quote|semi|equal|min/)) {
+                    if (j.id === e.keyCode.toLowerCase()) {
+                      // eslint-disable-next-line no-param-reassign
+                      j.innerHTML = e.shift;
+                    }
+                  }
+                });
+              });
             }
+            //
+            // if (get('keyLang') === 'ru') {
+            //   set('keyLang', 'en');
+            //   this.init(get('keyLang'));
+            // } else {
+            //   set('keyLang', 'ru');
+            //   this.init(get('keyLang'));
+            // }
           }
         } else if (type.match(/keyup/)) {
+          if (x.id.match(/shift/)) {
+            this.btns.forEach((j) => {
+              language[this.lang].forEach((e) => {
+                if (j.id.match(/key|dig|bracket|slash|comma|period|quote|semi|equal|min/)) {
+                  if (j.id === e.keyCode.toLowerCase()) {
+                    // eslint-disable-next-line no-param-reassign
+                    j.innerHTML = e.small;
+                  }
+                }
+              });
+            });
+          }
           x.classList.remove('active');
         }
       }
