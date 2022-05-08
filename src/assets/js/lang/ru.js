@@ -302,22 +302,22 @@ export default [
     keyCode: 'ControlRight',
   },
   {
-    small: '&#8593;',
+    small: '↑',
     shift: null,
     keyCode: 'ArrowUp',
   },
   {
-    small: '&#8595;',
+    small: '↓',
     shift: null,
     keyCode: 'ArrowDown',
   },
   {
-    small: '&#8592',
+    small: '←',
     shift: null,
     keyCode: 'ArrowLeft',
   },
   {
-    small: '&#8594;',
+    small: '→',
     shift: null,
     keyCode: 'ArrowRight',
   },
