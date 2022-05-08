@@ -12,8 +12,12 @@ const keys = [
 ];
 const lang = get('keyLang');
 
+const keyboard = new Keyboard(keys);
 window.addEventListener('DOMContentLoaded', () => {
-  const keyboard = new Keyboard(keys);
   keyboard.addInput();
   keyboard.init(lang);
 });
+document.addEventListener('keydown', (ev) => keyboard.addRunKey(ev));
+document.addEventListener('keyup', (ev) => keyboard.addRunKey(ev));
+// document.addEventListener('mousedown', (ev) => keyboard.addRunKey(ev));
+// document.addEventListener('mouseup', (ev) => console.log(ev));
