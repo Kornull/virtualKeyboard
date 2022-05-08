@@ -96,8 +96,10 @@ export default class Keyboard {
       // checking for btns
       if (x.id === code.toLowerCase()) {
         if (type.match(/keydown|mousedown/)) {
-          if (type.match(/key/)) {
-            ev.preventDefault();
+          if (type.match(/down/)) {
+            if (type.match(/keydown/)) {
+              ev.preventDefault();
+            }
 
             // write to textarrea
             x.classList.add('active');
@@ -128,7 +130,7 @@ export default class Keyboard {
             //   this.init(get('keyLang'));
             // }
           }
-        } else if (type.match(/keyup/)) {
+        } else if (type.match(/up/)) {
           if (x.id.match(/shift/)) {
             if (countCaps === 1) {
               this.textUpLow('keydown');
