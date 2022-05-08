@@ -13,7 +13,7 @@
   padding: 15px;
   text-align-last: left;
   cursor: pointer;
-  transition: border-radius 0.2s linear, background-color 0.1s linear, color 0.1s linear;
+  transition: border-radius 0.1s linear, background-color 0.1s linear, color 0.1s linear;
   &:hover {
     background: rgb(0, 0, 0);
     border-radius: 10px;
@@ -49,7 +49,7 @@
   border-radius: 15px;
   color: #000000;
   &:hover{
-    color: #fff;
+    color: #878585;
   }
 }
 
