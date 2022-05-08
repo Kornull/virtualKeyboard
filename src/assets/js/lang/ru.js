@@ -218,7 +218,7 @@ export default [
   },
   {
     small: 'я',
-    shift: 'я',
+    shift: 'Я',
     keyCode: 'KeyZ',
   },
   {
