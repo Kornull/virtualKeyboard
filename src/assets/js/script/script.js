@@ -22,5 +22,5 @@ window.addEventListener('DOMContentLoaded', () => {
 });
 document.addEventListener('keydown', (ev) => keyboard.addRunKey(ev));
 document.addEventListener('keyup', (ev) => keyboard.addRunKey(ev));
-// document.addEventListener('mousedown', (ev) => keyboard.addRunKey(ev));
-// document.addEventListener('mouseup', (ev) => console.log(ev));
+document.addEventListener('mousedown', (ev) => keyboard.addRunKey({ code: ev.target.id, type: ev.type }));
+document.addEventListener('mouseup', (ev) => keyboard.addRunKey({ code: ev.target.id, type: ev.type }));
