@@ -10,8 +10,10 @@ const keys = [
   ],
   ['ControlLeft', 'MetaLeft', 'AltLeft', 'Space', 'AltRight', 'ControlRight', 'ArrowUp', 'ArrowLeft', 'ArrowDown', 'ArrowRight'],
 ];
-const lang = get('keyLang');
-
+let lang = get('keyLang');
+if (lang === null) {
+  lang = 'en';
+}
 const keyboard = new Keyboard(keys);
 window.addEventListener('DOMContentLoaded', () => {
   keyboard.addInput();
