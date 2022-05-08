@@ -1,4 +1,5 @@
 import language from '../lang/lang';
+import { get, set } from '../storage/storage';
 
 export default class Keyboard {
   constructor(keys, lang) {
@@ -99,11 +100,17 @@ export default class Keyboard {
             // write to textarrea
             const a = language[this.lang].find((el) => el.keyCode.toLowerCase() === x.id);
             x.classList.add('active');
-            if (x.id.match(/key|digc|bracket|slash|comma|period|quote|semi/)) this.text.value += a.small;
+            if (x.id.match(/key|dig|bracket|slash|comma|period|quote|semi|arrow/)) this.text.value += a.small;
             if (x.id.match(/tab/)) this.text.value += '    ';
             if (x.id.match(/ent/)) this.text.value += '\n';
             if (x.id.match(/shift/)) {
-              this.init('ru');
+              if (get('keyLang') === 'ru') {
+                set('keyLang', 'en');
+                this.init(get('keyLang'));
+              } else {
+                set('keyLang', 'ru');
+                this.init(get('keyLang'));
+              }
             }
           }
         } else if (type.match(/keyup/)) {
