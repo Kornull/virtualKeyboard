@@ -12,7 +12,7 @@ export default class Keyboard {
     this.keyboard = document.createElement('div');
     this.keyboard.classList.add('keyboard');
     this.key = null;
-    this.case = null;
+    this.keyLang = [];
   }
 
   addInput() {
@@ -87,14 +87,17 @@ export default class Keyboard {
     this.main.appendChild(this.keyboard);
   }
 
+  // click key mouse/keyboard
   addRunKey(ev) {
     this.text.focus();
 
     let cursorPos = this.text.selectionStart;
     const left = this.text.value.slice(0, cursorPos);
     const right = this.text.value.slice(cursorPos);
+
     if (ev.stopPropaganation) ev.stopPropaganation();
     const { code, type } = ev;
+
     this.btns.forEach((x) => {
       // checking for btns
       if (x.id === code) {
@@ -160,16 +163,19 @@ export default class Keyboard {
                 this.textUpLow(type);
               }
             }
-            //
-            // if (get('keyLang') === 'ru') {
-            //   set('keyLang', 'en');
-            //   this.init(get('keyLang'));
-            // } else {
-            //   set('keyLang', 'ru');
-            //   this.init(get('keyLang'));
-            // }
+
+            //  switch language
+            if (x.id.match(/Control|Alt/)) {
+              this.keyLang.push(code);
+            }
           }
         } else if (type.match(/up/)) {
+          if (this.keyLang.length === 2) {
+            this.swichLang();
+          }
+          // clear the language switching array
+          this.keyLang = [];
+
           if (x.id.match(/Shift/)) {
             if (countCaps === 1) {
               this.textUpLow('keydown');
@@ -249,5 +255,16 @@ export default class Keyboard {
         }
       });
     });
+  };
+
+  // switch language
+  swichLang = () => {
+    if (get('keyLang') === 'ru') {
+      set('keyLang', 'en');
+      this.init(get('keyLang'));
+    } else {
+      set('keyLang', 'ru');
+      this.init(get('keyLang'));
+    }
   };
 }
