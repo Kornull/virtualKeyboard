@@ -17,6 +17,7 @@ if (lang === null) {
 }
 const keyboard = new Keyboard(keys);
 window.addEventListener('DOMContentLoaded', () => {
+  keyboard.textDescr();
   keyboard.addInput();
   keyboard.init(lang);
 });
