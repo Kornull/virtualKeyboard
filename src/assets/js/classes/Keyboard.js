@@ -50,11 +50,11 @@ export default class Keyboard {
             this.key.classList.add('keyboards__key');
             this.key.id = i.keyCode;
             // add style func btn
-            if (this.key.id === 'Space') { this.key.style.width = '510px'; }
-            if (this.key.id === 'CapsLock') { this.key.classList.add('keyboards__key--caps'); }
-            if (this.key.id.match(/Backspace|Shift|Enter/)) { this.key.style.width = '180px'; }
+            if (this.key.id.match(/Space/)) { this.key.style.width = '310px'; }
+            if (this.key.id.match(/CapsLock/)) { this.key.classList.add('keyboards__key--caps'); }
+            if (this.key.id.match(/Backspace|Shift|Enter/)) { this.key.style.width = '100px'; }
             if (this.key.id.match(/Alt|Meta|Control/)) { this.key.style.width = '68px'; }
-            if (this.key.id.match(/Caps|Enter/)) { this.key.style.width = '140px'; }
+            if (this.key.id.match(/Caps|Enter/)) { this.key.style.width = '80px'; }
             if (this.key.id.match(/Arrow/)) {
               this.key.style.width = '53px';
               this.key.style.height = '23px';
@@ -89,16 +89,19 @@ export default class Keyboard {
 
   addRunKey(ev) {
     this.text.focus();
+
+    let cursorPos = this.text.selectionStart;
+    const left = this.text.value.slice(0, cursorPos);
+    const right = this.text.value.slice(cursorPos);
     if (ev.stopPropaganation) ev.stopPropaganation();
     const { code, type } = ev;
-
     this.btns.forEach((x) => {
       // checking for btns
       if (x.id === code) {
         if (type.match(/keydown|mousedown/)) {
           if (type.match(/down/)) {
             if (type.match(/keydown/)) {
-              if (code.match(/Backspace|Delete/)) {
+              if (code.match(/Backspa|Delete/)) {
                 // eslint-disable-next-line no-unused-expressions
                 ev === true;
               } else {
@@ -107,14 +110,41 @@ export default class Keyboard {
             }
 
             // write to textarrea
+
             x.classList.add('active');
-            if (x.id.match(/Key|Dig|Bracket|Slash|Backslash|Comma|Period|Quote|Semi|Arrow|Equal|Min/)) this.text.value += x.textContent;
-            if (x.id.match(/Tab/)) this.text.value += '    ';
-            if (x.id.match(/Ent/)) this.text.value += '\n';
-            if (x.id.match(/Space/)) this.text.value += ' ';
-            if (x.id.match(/Backspace/)) {
-              const pos = this.text.textContent.length - 1;
-              this.text.value = this.text.value.slice(0, pos);
+            if (x.id.match(/Key|Dig|Bracket|Slash|Backslash|Comma|Period|Quote|Semi|Arrow|Equal|Min|Backquote/)) {
+              cursorPos += 1;
+              this.text.value = `${left}${x.textContent}${right}`;
+              this.text.setSelectionRange(cursorPos, cursorPos);
+            }
+            if (x.id.match(/Tab/)) {
+              cursorPos += 4;
+              this.text.value = `${left}    ${right}`;
+              this.text.setSelectionRange(cursorPos, cursorPos);
+            }
+            if (x.id.match(/Ent/)) {
+              cursorPos += 1;
+              this.text.value = `${left}\n${right}`;
+              this.text.setSelectionRange(cursorPos, cursorPos);
+            }
+
+            if (x.id.match(/Space/)) {
+              cursorPos += 1;
+              this.text.value = `${left} ${right}`;
+              this.text.setSelectionRange(cursorPos, cursorPos);
+            } if (type.match(/mousedown/)) {
+              if (x.id.match(/Backspace/)) {
+                cursorPos -= 1;
+                if (cursorPos < 1) {
+                  cursorPos = 0;
+                }
+                this.text.value = this.text.value.slice(0, cursorPos) + right;
+                this.text.setSelectionRange(cursorPos, cursorPos);
+              }
+              if (x.id.match(/Delete/)) {
+                this.text.value = left + this.text.value.slice(cursorPos + 1);
+                this.text.setSelectionRange(cursorPos, cursorPos);
+              }
             }
             if (x.id.match(/Caps/)) {
               countCaps += 1;
@@ -170,9 +200,7 @@ export default class Keyboard {
               // if capslock is pressed
               if (countCaps === 1 && this.lang === 'en') {
                 if (j.id.match(/Digit|Min|Equ|Bracket|Comma|Period|Quote|Semi|Slash|Backslash|Backquote/)) j.innerHTML = e.shift;
-                if (j.id.match(/Key/)) {
-                  j.innerHTML = e.shift;
-                }
+                if (j.id.match(/Key/)) j.innerHTML = e.shift;
                 if (j.id.match(/Digit|Min|Equ|Backslash|Slash|Backquote|Comma|Period|Bracket/)) j.innerHTML = e.small;
               } else if (countCaps === 1 && this.lang === 'ru') {
                 if (j.id.match(/Key|Backquote|Bracket|Comma|Period|Quote|Semi/)) j.innerHTML = e.shift;
@@ -183,7 +211,7 @@ export default class Keyboard {
 
               // if capslock is pressed
               if (countCaps === 1 && this.lang === 'en') {
-                if (j.id.match(/Key/)) { j.innerHTML = e.small; }
+                if (j.id.match(/Key/)) j.innerHTML = e.small;
                 if (j.id.match(/Digit|Min|Equ|Backslash|Slash|Backquote|Comma|Period|Bracket/)) j.innerHTML = e.shift;
               } else if (countCaps === 1 && this.lang === 'ru') {
                 if (j.id.match(/Key|Backquote|Bracket|Comma|Period|Quote|Semi/)) j.innerHTML = e.small;
