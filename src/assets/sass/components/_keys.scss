@@ -42,7 +42,9 @@
 .keyboards__key--caps.active::after {
   background: rgb(255, 0, 0);
 }
-
+.arrows{
+  font-size: 10px;
+}
 .active {
   background-color: #ffffff;
   border: 1px solid #000;
@@ -50,7 +52,7 @@
   border-radius: 15px;
   color: #000000;
   &:hover{
-    color: #878585;
+    color: #7d7b7b;
   }
 }
 
