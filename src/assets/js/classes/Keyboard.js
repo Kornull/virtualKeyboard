@@ -171,7 +171,10 @@ export default class Keyboard {
           }
         } else if (type.match(/up/)) {
           if (this.keyLang.length === 2) {
-            this.swichLang();
+            if ((this.keyLang.includes('AltLeft') || this.keyLang.includes('AltRight'))
+             && (this.keyLang.includes('ControlLeft') || this.keyLang.includes('ControlRight'))) {
+              this.swichLang();
+            }
           }
           // clear the language switching array
           this.keyLang = [];
