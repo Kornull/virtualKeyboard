@@ -267,4 +267,14 @@ export default class Keyboard {
       this.init(get('keyLang'));
     }
   };
+
+  // description keyboard
+  textDescr() {
+    const description = document.createElement('div');
+    description.classList.add('description');
+
+    description.innerHTML = `This keyboard was created in Linux system,<br>
+    switch language with Ctrl+Alt keys.`;
+    this.main.appendChild(description);
+  }
 }
