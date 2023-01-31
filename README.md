@@ -8,7 +8,13 @@ This project is async virtual keyboard. Completed as part of studies at the ***[
 * ### *Webpack* 
 * ### *JavaScript* 
 * ### *SCSS*
+* ### *LocalStorage*
 
+### Details
+ + rocessing of keystrokes on the keyboard
+ + interaction between the keyboard and mouse
+ + language change
+ 
 ---
 The history of commits and development process can be found ***[here](https://github.com/Kornull/virtualKeyboard/pull/1)***
 
